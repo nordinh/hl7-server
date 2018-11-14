@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StructureDefinition xmlns="http://hl7.org/fhir">
+  <url value="http://healthdata.be/fhir/StructureDefinition/hd-patient" />
+  <name value="hd-patient" />
+  <status value="draft" />
+  <fhirVersion value="3.0.1" />
+  <kind value="resource" />
+  <abstract value="false" />
+  <type value="Patient" />
+  <baseDefinition value="http://hl7.org/fhir/StructureDefinition/Patient" />
+  <derivation value="constraint" />
+  <differential>
+    <element id="Patient.identifier">
+      <path value="Patient.identifier" />
+      <slicing>
+        <discriminator>
+          <type value="value" />
+          <path value="system" />
+        </discriminator>
+        <description value="Patients in Belgium should be at least referenced by their Social Security Identification Number (SSIN)" />
+        <rules value="open" />
+      </slicing>
+    </element>
+    <element id="Patient.identifier:SSIN">
+      <path value="Patient.identifier" />
+      <sliceName value="SSIN" />
+      <min value="1" />
+      <max value="1" />
+    </element>
+    <element id="Patient.identifier:SSIN.system">
+      <path value="Patient.identifier.system" />
+      <short value="SSIN Belgium" />
+      <min value="1" />
+      <fixedUri value="http://healthdata.be/ssin" />
+    </element>
+    <element id="Patient.identifier:SSIN.value">
+      <path value="Patient.identifier.value" />
+      <min value="1" />
+      <maxLength value="11" />
+    </element>
+  </differential>
+</StructureDefinition>
