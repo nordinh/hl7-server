@@ -41,4 +41,5 @@ public class ValidationTest {
 
         assertThat(result.isSuccessful(), is(true));
     }
+
 }
