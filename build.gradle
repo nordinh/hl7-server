@@ -31,6 +31,7 @@ dependencies {
 
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'javax.servlet:javax.servlet-api'
+    compile 'commons-io:commons-io'
 
     testCompile 'junit:junit'
 }
