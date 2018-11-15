@@ -24,8 +24,10 @@ repositories {
 dependencies {
     compile 'ca.uhn.hapi.fhir:hapi-fhir-base:3.6.0'
     compile 'ca.uhn.hapi.fhir:hapi-fhir-structures-dstu3:3.6.0'
+    compile 'ca.uhn.hapi.fhir:hapi-fhir-structures-r4:3.6.0'
     compile 'ca.uhn.hapi.fhir:hapi-fhir-validation-resources-dstu3:3.6.0'
     compile 'ca.uhn.hapi.fhir:hapi-fhir-server:3.6.0'
+    compile 'ca.uhn.hapi.fhir:hapi-fhir-validation:3.6.0'
 
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'javax.servlet:javax.servlet-api'
