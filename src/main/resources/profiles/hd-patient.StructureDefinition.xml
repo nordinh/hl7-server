@@ -373,6 +373,10 @@
     </element>
     <element id="Patient.identifier">
       <path value="Patient.identifier" />
+      <code>
+        <system value="urn:security" />
+        <code value="PSEUDONOM" />
+      </code>
       <slicing>
         <discriminator>
           <type value="value" />
@@ -442,7 +446,7 @@
       <short value="An identifier for this patient" />
       <definition value="An identifier for this patient." />
       <requirements value="Patients are almost always assigned specific numerical identifiers." />
-      <min value="1" />
+      <min value="0" />
       <max value="1" />
       <base>
         <path value="Patient.identifier" />
@@ -2972,6 +2976,10 @@
   <differential>
     <element id="Patient.identifier">
       <path value="Patient.identifier" />
+      <code>
+        <system value="urn:security" />
+        <code value="PSEUDONOM" />
+      </code>
       <slicing>
         <discriminator>
           <type value="value" />
@@ -2984,7 +2992,6 @@
     <element id="Patient.identifier:SSIN">
       <path value="Patient.identifier" />
       <sliceName value="SSIN" />
-      <min value="1" />
       <max value="1" />
     </element>
     <element id="Patient.identifier:SSIN.system">

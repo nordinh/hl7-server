@@ -30,7 +30,7 @@ public class ValidationTest {
     }
 
     @Test
-    public void testValidation() throws Exception {
+    public void testValidation_SingleSSIN_Succeeds() throws Exception {
         String patient = IOUtils.resourceToString("/patient-1.xml", StandardCharsets.UTF_8);
 
         ValidationResult result = validator.validateWithResult(patient);
@@ -41,5 +41,59 @@ public class ValidationTest {
 
         assertThat(result.isSuccessful(), is(true));
     }
+
+    @Test
+    public void testValidation_NoSSIN_Succeeds() throws Exception {
+        String patient = IOUtils.resourceToString("/patient-2.xml", StandardCharsets.UTF_8);
+
+        ValidationResult result = validator.validateWithResult(patient);
+
+        for (SingleValidationMessage next : result.getMessages()) {
+            System.out.println(" Next issue " + next.getSeverity() + " - " + next.getLocationString() + " - " + next.getMessage());
+        }
+
+        assertThat(result.isSuccessful(), is(true));
+    }
+
+    @Test
+    public void testValidation_InternalIdentifier_Succeeds() throws Exception {
+        String patient = IOUtils.resourceToString("/patient-3.xml", StandardCharsets.UTF_8);
+
+        ValidationResult result = validator.validateWithResult(patient);
+
+        for (SingleValidationMessage next : result.getMessages()) {
+            System.out.println(" Next issue " + next.getSeverity() + " - " + next.getLocationString() + " - " + next.getMessage());
+        }
+
+        assertThat(result.isSuccessful(), is(true));
+    }
+
+    @Test
+    public void testValidation_MultipleSSIN_Fails() throws Exception {
+        String patient = IOUtils.resourceToString("/patient-4.xml", StandardCharsets.UTF_8);
+
+        ValidationResult result = validator.validateWithResult(patient);
+
+        for (SingleValidationMessage next : result.getMessages()) {
+            System.out.println(" Next issue " + next.getSeverity() + " - " + next.getLocationString() + " - " + next.getMessage());
+        }
+
+        assertThat(result.isSuccessful(), is(false));
+    }
+
+    @Test
+    public void testValidation_MultipleIdentifiers_Succeeds() throws Exception {
+        String patient = IOUtils.resourceToString("/patient-5.xml", StandardCharsets.UTF_8);
+
+        ValidationResult result = validator.validateWithResult(patient);
+
+        for (SingleValidationMessage next : result.getMessages()) {
+            System.out.println(" Next issue " + next.getSeverity() + " - " + next.getLocationString() + " - " + next.getMessage());
+        }
+
+        assertThat(result.isSuccessful(), is(true));
+    }
+
+
 
 }

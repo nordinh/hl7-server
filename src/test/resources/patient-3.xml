@@ -1,0 +1,14 @@
+<Patient xmlns="http://hl7.org/fhir">
+    <meta>
+        <profile value="http://healthdata.be/fhir/StructureDefinition/hd-patient"/>
+    </meta>
+    <identifier>
+        <system value="urn:myCustomSystem"></system>
+        <value value="myCustomPatientId"></value>
+    </identifier>
+    <name>
+        <family value="Test"></family>
+        <given value="PatientOne"></given>
+    </name>
+    <gender value="female"></gender>
+</Patient>

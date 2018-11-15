@@ -2,11 +2,13 @@ package com.github.nordinh.hl7server;
 
 
 import ca.uhn.fhir.context.FhirContext;
-import javafx.util.Pair;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.hl7.fhir.dstu3.hapi.validation.DefaultProfileValidationSupport;
 import org.hl7.fhir.dstu3.model.StructureDefinition;
 
-import java.io.InputStreamReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,13 +28,17 @@ public class TestProfileValidationSupport extends DefaultProfileValidationSuppor
     }
 
     private Pair<String, StructureDefinition> getCustomStructureDefinition(FhirContext theContext) {
-        InputStreamReader reader = new InputStreamReader(DefaultProfileValidationSupport.class
-            .getResourceAsStream("/profiles/hd-patient.StructureDefinition.xml"));
+        try {
+            StructureDefinition nextSd = theContext.newXmlParser().parseResource(
+                    StructureDefinition.class,
+                    IOUtils.resourceToString("/profiles/hd-patient.StructureDefinition.xml", StandardCharsets.UTF_8)
+            );
+            nextSd.getText().setDivAsString("");
 
-        StructureDefinition nextSd = theContext.newXmlParser().parseResource(StructureDefinition.class, reader);
-        nextSd.getText().setDivAsString("");
-
-        return new Pair<>(nextSd.getUrl(), nextSd);
+            return Pair.of(nextSd.getUrl(), nextSd);
+        } catch (IOException e) {
+            throw new RuntimeException("Foutje!!!", e);
+        }
     }
 
 }
