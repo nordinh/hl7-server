@@ -2,6 +2,10 @@
     <meta>
         <profile value="http://healthdata.be/fhir/StructureDefinition/hd-patient"/>
     </meta>
+    <identifier>
+        <system value="http://healthdata.be/ssin"/>
+        <value value="12345678901"/>
+    </identifier>
     <name>
         <family value="Test"/>
         <given value="PatientOne"/>

@@ -3,12 +3,13 @@
         <profile value="http://healthdata.be/fhir/StructureDefinition/hd-patient"/>
     </meta>
     <identifier>
-        <system value="urn:myCustomSystem"></system>
-        <value value="myCustomPatientId"></value>
+        <use value="temp"/>
+        <system value="urn:myCustomSystem"/>
+        <value value="myCustomPatientId"/>
     </identifier>
     <name>
-        <family value="Test"></family>
-        <given value="PatientOne"></given>
+        <family value="Test"/>
+        <given value="PatientOne"/>
     </name>
-    <gender value="female"></gender>
+    <gender value="female"/>
 </Patient>
