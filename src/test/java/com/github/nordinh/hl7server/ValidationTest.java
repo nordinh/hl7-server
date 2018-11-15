@@ -5,10 +5,10 @@ import ca.uhn.fhir.validation.FhirValidator;
 import ca.uhn.fhir.validation.SingleValidationMessage;
 import ca.uhn.fhir.validation.ValidationResult;
 import org.hl7.fhir.dstu3.hapi.validation.FhirInstanceValidator;
-import org.hl7.fhir.dstu3.model.Enumerations;
-import org.hl7.fhir.dstu3.model.OperationOutcome;
-import org.hl7.fhir.dstu3.model.Patient;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class ValidationTest {
 
@@ -27,7 +27,7 @@ public class ValidationTest {
                 "        <profile value=\"http://healthdata.be/fhir/StructureDefinition/hd-patient\"/>\n" +
                 "    </meta>" +
                 "    <identifier>\n" +
-                "        <system value=\"http://healthdata.be/ssid\"></system>\n" +
+                "        <system value=\"http://healthdata.be/ssin\"></system>\n" +
                 "        <value value=\"12345678901\"></value>\n" +
                 "    </identifier>\n" +
                 "    <name>\n" +
@@ -39,11 +39,10 @@ public class ValidationTest {
 
         ValidationResult result = validator.validateWithResult(patient);
 
-        System.out.println(result.isSuccessful()); // false
+        assertThat(result.isSuccessful(), is(true));
 
         for (SingleValidationMessage next : result.getMessages()) {
             System.out.println(" Next issue " + next.getSeverity() + " - " + next.getLocationString() + " - " + next.getMessage());
         }
-        OperationOutcome oo = (OperationOutcome) result.toOperationOutcome();
     }
 }
