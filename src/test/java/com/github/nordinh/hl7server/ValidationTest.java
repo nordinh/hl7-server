@@ -94,32 +94,4 @@ public class ValidationTest {
         assertThat(result.isSuccessful(), is(true));
     }
 
-    @Test
-    public void testValidation_UseNotSpecified_Fails() throws Exception {
-        String patient = IOUtils.resourceToString("/patient-6.xml", StandardCharsets.UTF_8);
-
-        ValidationResult result = validator.validateWithResult(patient);
-
-        for (SingleValidationMessage next : result.getMessages()) {
-            System.out.println(" Next issue " + next.getSeverity() + " - " + next.getLocationString() + " - " + next.getMessage());
-        }
-
-        assertThat(result.isSuccessful(), is(false));
-    }
-
-    @Test
-    public void testValidation_UseWrongValue_Fails() throws Exception {
-        String patient = IOUtils.resourceToString("/patient-7.xml", StandardCharsets.UTF_8);
-
-        ValidationResult result = validator.validateWithResult(patient);
-
-        for (SingleValidationMessage next : result.getMessages()) {
-            System.out.println(" Next issue " + next.getSeverity() + " - " + next.getLocationString() + " - " + next.getMessage());
-        }
-
-        assertThat(result.isSuccessful(), is(false));
-    }
-
-
-
 }
