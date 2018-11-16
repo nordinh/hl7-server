@@ -9,29 +9,50 @@ import org.hl7.fhir.dstu3.model.StructureDefinition;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
+import static java.util.Arrays.stream;
 
 public class TestProfileValidationSupport extends DefaultProfileValidationSupport {
 
+    private static String[] customStructureDefinitionResources = {
+            "/profiles/hd-patient.StructureDefinition.xml",
+            "/profiles/CRRDBundle.StructureDefinition.xml"
+    };
+
+    private Map<String, StructureDefinition> customStructureDefs = new HashMap<>();
+
+    private void initCustomStructureDefs(FhirContext fhirContext) {
+        if (!customStructureDefs.isEmpty()) return;
+
+        stream(customStructureDefinitionResources)
+                .map(resource -> getCustomStructureDefinition(fhirContext, resource))
+                .forEach(structureDefinition -> customStructureDefs.put(structureDefinition.getKey(), structureDefinition.getValue()));
+    }
+
+
     @Override
     public List<StructureDefinition> fetchAllStructureDefinitions(FhirContext theContext) {
+        initCustomStructureDefs(theContext);
+
         List<StructureDefinition> structureDefinitions = super.fetchAllStructureDefinitions(theContext);
-        structureDefinitions.add(getCustomStructureDefinition(theContext).getValue());
+        structureDefinitions.addAll(customStructureDefs.values());
         return structureDefinitions;
     }
 
     @Override
     public StructureDefinition fetchStructureDefinition(FhirContext theContext, String theUrl) {
+        initCustomStructureDefs(theContext);
+
         return Optional.ofNullable(super.fetchStructureDefinition(theContext, theUrl))
-            .orElseGet(() -> getCustomStructureDefinition(theContext).getValue());
+            .orElseGet(() -> customStructureDefs.get(theUrl));
     }
 
-    private Pair<String, StructureDefinition> getCustomStructureDefinition(FhirContext theContext) {
+    private Pair<String, StructureDefinition> getCustomStructureDefinition(FhirContext theContext, String customProfile) {
         try {
             StructureDefinition nextSd = theContext.newXmlParser().parseResource(
                     StructureDefinition.class,
-                    IOUtils.resourceToString("/profiles/hd-patient.StructureDefinition.xml", StandardCharsets.UTF_8)
+                    IOUtils.resourceToString(customProfile, StandardCharsets.UTF_8)
             );
             nextSd.getText().setDivAsString("");
 
