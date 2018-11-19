@@ -3,12 +3,10 @@
         <profile value="http://healthdata.be/fhir/StructureDefinition/hd-patient"/>
     </meta>
     <identifier>
-        <use value="temp"/>
         <system value="http://healthdata.be/ssin"/>
         <value value="12345678901"/>
     </identifier>
     <identifier>
-        <use value="temp"/>
         <system value="http://healthdata.be/ssin"/>
         <value value="09876543210"/>
     </identifier>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <StructureDefinition xmlns="http://hl7.org/fhir">
-  <url value="http://healthdata.be/StructureDefinition/CRRDBundle" />
+  <url value="http://healthdata.be/fhir/StructureDefinition/CRRDBundle" />
   <name value="CRRDBundle" />
   <status value="draft" />
   <fhirVersion value="3.0.1" />
@@ -232,6 +232,10 @@
       <type>
         <code value="Identifier" />
       </type>
+      <fixedIdentifier>
+        <system value="http://healthdata.be/research" />
+        <value value="crrd" />
+      </fixedIdentifier>
       <condition value="ele-1" />
       <constraint>
         <key value="ele-1" />
@@ -277,6 +281,7 @@
       <type>
         <code value="code" />
       </type>
+      <fixedCode value="collection" />
       <condition value="ele-1" />
       <constraint>
         <key value="ele-1" />
@@ -5673,6 +5678,17 @@
     </element>
   </snapshot>
   <differential>
+    <element id="Bundle.identifier">
+      <path value="Bundle.identifier" />
+      <fixedIdentifier>
+        <system value="http://healthdata.be/research" />
+        <value value="crrd" />
+      </fixedIdentifier>
+    </element>
+    <element id="Bundle.type">
+      <path value="Bundle.type" />
+      <fixedCode value="collection" />
+    </element>
     <element id="Bundle.entry">
       <path value="Bundle.entry" />
       <slicing>

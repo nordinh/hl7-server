@@ -94,4 +94,43 @@ public class ValidationTest {
         assertThat(result.isSuccessful(), is(true));
     }
 
+    @Test
+    public void testValidation_Crrd_Succeeds() throws Exception {
+        String crrd = IOUtils.resourceToString("/bundle-1.xml", StandardCharsets.UTF_8);
+
+        ValidationResult result = validator.validateWithResult(crrd);
+
+        for (SingleValidationMessage next : result.getMessages()) {
+            System.out.println(" Next issue " + next.getSeverity() + " - " + next.getLocationString() + " - " + next.getMessage());
+        }
+
+        assertThat(result.isSuccessful(), is(true));
+    }
+
+    @Test
+    public void testValidation_CrrdWrongEntryId_Fails() throws Exception {
+        String crrd = IOUtils.resourceToString("/bundle-2.xml", StandardCharsets.UTF_8);
+
+        ValidationResult result = validator.validateWithResult(crrd);
+
+        for (SingleValidationMessage next : result.getMessages()) {
+            System.out.println(" Next issue " + next.getSeverity() + " - " + next.getLocationString() + " - " + next.getMessage());
+        }
+
+        assertThat(result.isSuccessful(), is(false));
+    }
+
+    @Test
+    public void testValidation_CrrdWrongProfile_Fails() throws Exception {
+        String crrd = IOUtils.resourceToString("/bundle-3.xml", StandardCharsets.UTF_8);
+
+        ValidationResult result = validator.validateWithResult(crrd);
+
+        for (SingleValidationMessage next : result.getMessages()) {
+            System.out.println(" Next issue " + next.getSeverity() + " - " + next.getLocationString() + " - " + next.getMessage());
+        }
+
+        assertThat(result.isSuccessful(), is(false));
+    }
+
 }
